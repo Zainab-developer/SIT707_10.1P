@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -35,13 +34,13 @@ jobs:
       run: mvn test
 
     - name: Send email notification
-      if: failure() || success()
+      if: always() # This ensures the email is sent whether the build succeeds or fails
       uses: dawidd6/action-send-mail@v3
       with:
         server_address: smtp.gmail.com
         server_port: 587
         username: ${{ secrets.EMAIL_USERNAME }}
-        password: ecxe keve mvvl bzue
+        password: ${{ secrets.EMAIL_PASSWORD }}
         subject: Build ${{ job.status }} for ${{ github.repository }}
         body: |
           The GitHub Actions build has completed.
@@ -52,4 +51,4 @@ jobs:
           - Author: ${{ github.actor }}
           - Status: ${{ job.status }}
         to: zakhan23.zk@gmail.com
-        from: Maven
+        from: ${{ secrets.EMAIL_USERNAME }}
