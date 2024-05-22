@@ -7,7 +7,9 @@ import java.util.ArrayList;
 public class TaskInbox {
     private List<String> tasks;
 
- 
+    public TaskInbox() {
+        tasks = new ArrayList<>();
+    }
 
     public List<String> getTasks() {
         return tasks;
